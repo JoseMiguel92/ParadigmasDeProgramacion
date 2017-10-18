@@ -8,3 +8,12 @@ while i <= 10 do
     i += 1
 end
 puts suma
+
+for i in 0..9
+    numero = gets.to_i
+    if (numero)%2 == 0
+        puts numero 
+        suma += numero
+    end
+end
+puts suma
