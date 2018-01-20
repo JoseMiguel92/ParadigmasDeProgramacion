@@ -7,10 +7,12 @@ class Identificador
         # partes = nif.split('-')
         # @numero = partes[0].to_i
         # @letra = partes[1]
+        # Regex
+        partes = nif.scan(/([a-zA-Z])?(\d{8})[\-\/\ ]?(\w)?/)
+        
+        @numero = partes[0][1]
+        @letra = ((partes[0][0] == nil) ? partes[0][2] : partes[0][0])
 
-        partes = nif.scan(/(\d+)(\w)/)
-        @numero = partes[0]
-        @letra = partes[1]
     end
 
     attr_reader :numero, :letra
