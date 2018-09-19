@@ -16,7 +16,7 @@ instance Ord Libreria where
  
 
 instance Show Libreria where
- show (Libreria nombre major minor) = " " ++ show nombre ++ " " ++ show major  ++ "." ++ show minor ++ " "
+ show (Libreria nombre major minor) = nombre ++ " " ++ show major  ++ "." ++ show minor
 
 class Compatible l where
   sonCompatibles :: l -> l -> Bool

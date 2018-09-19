@@ -1,0 +1,291 @@
+Introducción Programacion funcional (Video 1)
+    Definición de Funcion:
+        Compresión: Se da la ecuación que permite a partir de los valores de 
+        entrar los valores de salida. 
+        Extension: Conjunto de pares ordenados (el primer elemento es del 
+        conjunto origen y el segundo elemento es del conjunto imagen).
+
+    Efectos laterales: Modificacion de un valor externo a la funcion.
+
+    Transparencia referencial: El resultado devuelto por una funcion solo 
+    depende de los argumentos que se le pasan en la llamada.
+
+    No hay posiciones de memoria
+
+    Esto x = <expresion> se lee como: x se define como esta expresion. Se puede 
+    sustituir x por la expresion, no que x vale eso. Por tanto no puede aparecer
+     otra vez el identificador x con otra expresion.
+
+    Estructuras de control:
+        Composicion funcional
+        Construccion condicional
+        Recursividad (Usado para bucles)
+    
+    Las expresiones se evaluan reduciendo las funciones mas externas antes de
+    las internas. De izquierda a derecha.
+
+Aspectos de Haskell (Video 2)
+    Declaracion:
+        doble :: Integer -> Integer
+    
+    Comentarios:
+        -- Esto es un comentario
+
+    Definicion:
+        doble x = x + x
+
+    Tipos de datos:
+        Si no se declara el tipo de dato es inferido.
+        Esto se hace quitando la declaracion de la funcion:
+            doble:: Integer -> Integer
+            doble x = x + x
+            doble 3 devolverá un 6
+            doble 3.5 da error
+        Si quitamos la declaracion (doble:: Integer -> Integer) Haskel infiere
+        los tipos y devolveria 6 y 7.0, respectivamente.
+    
+        Básicos:
+            Enteros (Int, limitados e Integer, no limitados)
+            Reales (Float y Double)
+            Booleanos (Bool, solo True o False)
+            Caracteres imprimibles (Char con '' y String con "")
+        
+        Los tipos empiezan en mayuscula y las funciones y argumentos empiezan en
+        minuscula.
+
+        Otros:
+            Tuplas:
+                Sucesion de igual o diferente tipo.
+            Listas:
+                Sucesion de elementos todos del mismo tipo.
+            Funciones:
+                Orden superior, pasadas como argumentos y devueltas como 
+                resultados.
+
+        Tipo entero:
+            + Suma
+            - Resta
+            * Multiplicacion
+            `div` Division
+            `mod` Modulo
+            `rem` Modulo
+            odd,even,gcd,lcm,abs,signum...
+        
+        Tipo real:
+            + Suma
+            - Resta
+            * Multiplicacion
+            / Division
+            ^ Potencia de base real y exponente Enteros
+            ** Base y exponente Reales
+            abs,signum,sin,log,sqrt,truncate...
+        
+        Tipo booleano:
+            = Igual
+            > Mayor que
+            >= Mayor o igual que
+            < Menor que
+            <= Menor o igual que
+            /= Distinto
+
+
+        Tuplas:
+            n-tupla es una coleccion de n valores que se trata como algo
+            unitario, estos valores pueden ser de igual o distinto tipo.
+            f:: (Int,Int) -> (Int,Int)
+            f(m,n) = (m + n , m - n)
+
+        
+    Funciones en Haskell
+        Tienen 2 partes, la declaracion y la definicion
+        f:: Tdom -> Timg (declaracion)
+        f(x) = <expresion> (definicion)
+
+    Expresiones condicionales
+        If..then..else
+        La rama else es obligatoria
+
+        CASE
+            Ej:
+            paridad:: Integer -> Bool
+            paridad x = case (x `rem` 2) of
+                                        0 -> True
+                                        1 -> False
+                                        .
+                                        .
+                                        otherwise (o bien _) -> ...
+
+        Guardas
+            Damos varias definiciones a una misma funcion segun los argumentos
+            de entrada.
+                Ej:
+                mayor :: (Int,Int)->Int
+                mayor (x,y)
+                    | x > y = x
+                    | otherwise = y
+            El orden es importante, las guardas se evaluan de arriba hacia
+            abajo y se da el primer True que haya.
+    
+    Recursividad (Videodeo 2 29:07):
+        Lineal: La funcion tiene una llamada recursiva. Este tipo se clasifica
+        en:
+            Final o de cola: La llamada recursiva es la ultima operacion que se
+            ejecuta. (Se usa con parámetro de acumulación).
+
+            No final: Cuando la llamada recursiva no es la ultima operacion (Aun
+            quedan operaciones por hacer para resolver el problema, por ejemplo
+            como sucede en el factorial).
+        
+        No lineal o Multiple: La funcion tiene mas de una llamada recursiva.
+
+    Listas (Video 3)
+        Tipo de dato fundamental, [a] representa una lista con elementos de tipo
+        a.
+        [] Lista vacia
+        [1,3,10] Definicion explicita de una lista
+        Constructor de listas, es el uso de : (dos puntos)
+            [1,3,10] = 1:[3,10]
+        
+        Todos los tipos de una lista tienen que ser iguales.
+
+        [[1,2],[3,4],[5,6,7],[]] ::  [[Integer]] Lista de listas ( de enteros )
+
+        ["Hola","Adios","Hasta luego"] :: [String]
+
+        [['a','c'],['b','d']] :: [[Char]]
+
+        El uso del operador (:) en ajuste de patrones.
+
+        Por ejemplo:
+            factorial :: Integer -> Integer
+            factorial 0 = 1
+            factorial x = x * factorial(x-1)
+
+        polimorfismo en listas
+            Para definir funciones polimorficas, ponemos el tipo en la
+            declaracion de la funcion en minuscula y esto representa cualquier
+            tipo.
+
+        Listas por comprension:
+            Permite declarar una gran cantidad de iteraciones sobre listas.
+            Generadores: patron <- expresion
+                [x*x | x <- [1..10]]
+                [(x,y)|x<-[1..3],y<-[1..2]]
+            
+            Filtros: Incluye una expresion booleana ( [E|condicion] = if
+                                                    condicion then [e] else [])
+                [x*x|x<-[1..10], even x]
+        
+        Operaciones sobre listas
+            Concatenacion: 
+                ++ : [1,2,3]++[4,5] = [1,2,3,4,5]
+                Concat[[1,2],[],[3,2,1]]
+            Reverse:
+                reverse "Abcd" = "dcbA"
+
+            Length:
+                length [2,3,4] = 3
+
+            Head, Tail:
+                head [1,2,3,4] = 1
+                tail [1,2,3,4] = [2,3,4]
+
+            Init,Last:
+                init [1,2,3,4] = [1,2,3]
+                last [1,2,3,4] = 4
+            
+            Take,Drop:
+                take 3 [1,2,3,4] = [1,2,3]
+                drop 1 [1,2,3,4] = [2,3,4]
+
+            Indexacion:
+                Hallar el elemento que ocupa la posicion n
+                [2,1,3,5,4]!!3 = 5 <- Empieza a contar en 0
+
+            Map:
+                Aplica una funcion a cada elemento de la lista:
+                    cuadrado:: Int -> Int
+                    cuadrado x = x*x
+                    map cuadrado [9,3] = [81,9]
+            
+            Filter:
+                Devuelve una sublista de una lista que satisfacen la condicion:
+                    even:: Int -> Bool
+                    even x = (x `rem`2 == 0)
+                    filter even [1,2,3,4,5,32] = [2,4,32]
+
+            Zip:
+                Toma 2 listas y devuelve una lista de los pares de elementos que
+                se corresponden
+                    zip[0..3]"Hola" = [(0,'h'),(1,'o'),...]
+            
+            Unzip:
+                Toma una lista de pares y los descompone en 2 listas.
+                    unzip[(1,True),(4,True),(3,False)] = [1,4,3]
+                    [True,True,False]
+
+Aspectos Avanzados de Haskell (Video 4)
+    Polimorfismo:
+        Si no incluimos la declaración de una funcion se puede aplicar a todo
+        tipo de datos compatible con las operaciones de la definicion.
+
+        Clases predefinidas: Agrupa los tipos de datos en una jerarquia.(Enum Num Eq Show ....)
+
+        Se usan para restringir el tipo de elementos que pueden pasarse a una
+        funcion polimorfica.
+             suma :: Num a => [a] -> a (Solo puede recibir parametros de tipo
+             Num)
+    
+    Tipos definidos:
+        type: Permite renombrar tipos (no crea nuevos tipos)
+            Este tipo se usaria como sinonimo de ese tipo.
+            
+        data: Se crean nuevos tipos de datos mediante el uso de constructores.
+            data NombreTipo = constructor de datos
+            Un constructor de datos indica como se construyen los elementos de
+            ese tipo.
+                Se puede hacer enumerando los diferentes valores que puede tomar
+                el tipo.
+            
+            Se puede añadir diferentes clases de la jerarquia para definir de
+            que clase deriva nuestro tipo nuevo.
+                deriving Eq: Si son iguales o no.
+                deriving Show: Para que se muestre por pantalla el tipo.
+                deriving Ord: Para que haya ordenacion, y la ordenacion seria el orden en
+                    que lo hayamos escrito en el constructor de datos.
+            
+            Para pasar un valor de un nuevo tipo definido, tenemos que pasarle a
+            la funcion algun tipo del constructor de datos que hayamos puesto.
+
+            Tambien se puede definir un tipo compuesto mediante otros mas
+            sencillos. 
+                
+    Ajuste de patrones:
+        Pueden ser con constantes, por ejemplo con 0 en factorial.
+        Y puede ser variables, usando _ o "wild card".
+        
+    Definiciones locales:
+        Permiten dar un nombre a una expresion.
+        Mediante let:
+            let <n1> = <e1>; <n2> = <e2> in <expresion>
+        
+        Mediante where:
+            <expresion>
+            where
+                <n1> = <e1>
+                <n2> = <e2>
+
+    Clases
+        class Nombre a where
+            declaraciones...
+
+    Es posible tener identificadores de constructores
+    binarios que sean simbólicos (formado por símbolos, no
+    letras). Siempre deben comenzar por “:”
+    
+    data Complejo = Float :- Float deriving Show
+    parteReal :: Complejo -> Float
+    parteReal (x :- _) = x
+
+    data Arbol a = AV | Rama (Arbol a) a (Arbol a)
+                

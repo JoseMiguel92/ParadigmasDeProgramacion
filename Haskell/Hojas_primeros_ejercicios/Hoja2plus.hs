@@ -9,7 +9,7 @@ invertirLista :: [Int] -> [Int]
 invertirLista = foldr (\x acum -> acum ++ [x]) []
 
 invertirLista' :: [Int] -> [Int]
-invertirLista' = foldl (\acum x -> acum ++ [x]) []
+invertirLista' = foldl (\acum x -> (x:acum)) []
 
 verdad :: [Bool] -> Bool
 verdad = foldr (&&) True
